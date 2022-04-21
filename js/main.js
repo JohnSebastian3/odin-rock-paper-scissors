@@ -1,3 +1,11 @@
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
+
+rockButton.addEventListener('click', e => {
+  playRound(e.target.innerText, randomPlay());
+});
+
 
 // Randomly return either rock, paper, or scissors
 function randomPlay() {
@@ -28,49 +36,50 @@ function playRound(playerSelection, computerSelection) {
 
 
 // Simulate a set amount of rounds of a match
-function game() {
+// function game() {
 
-  let playerScore = 0;
-  let computerScore = 0;
+//   let playerScore = 0;
+//   let computerScore = 0;
 
-  // 5 rounds
-  for(let i = 0; i < 5; i++) {
+//   // 5 rounds
+//   for(let i = 0; i < 5; i++) {
 
-    // Generate random choices for both players
-    let playerSelection = prompt('Rock, Paper, or Scissors?').toLowerCase();
-    let computerSelection = randomPlay();
+//     // Generate random choices for both players
 
-    let result = playRound(playerSelection, computerSelection);
-    console.log(result);
-    // Tally score
-    if(result.includes('Win')) {
-      playerScore++;
-    } else if(result.includes('Lose')) {
-      computerScore++;
-    } 
+//     // let playerSelection = prompt('Rock, Paper, or Scissors?').toLowerCase();
+//     let computerSelection = randomPlay();
+
+//     let result = playRound(playerSelection, computerSelection);
+//     console.log(result);
+//     // Tally score
+//     if(result.includes('Win')) {
+//       playerScore++;
+//     } else if(result.includes('Lose')) {
+//       computerScore++;
+//     } 
     
-    // Display score
-    console.log(`Your Score: ${playerScore} | Computer Score: ${computerScore}`)
+//     // Display score
+//     console.log(`Your Score: ${playerScore} | Computer Score: ${computerScore}`)
 
     
-  }
+//   }
 
 
-  // Determine winner by seeing who was higher score
-  if(playerScore > computerScore) {
-    console.log(`Player Wins! Final Score was ${playerScore} to ${computerScore}`);
+//   // Determine winner by seeing who was higher score
+//   if(playerScore > computerScore) {
+//     console.log(`Player Wins! Final Score was ${playerScore} to ${computerScore}`);
     
-  } else if(playerScore === computerScore) {
-    console.log('You Tied!');
+//   } else if(playerScore === computerScore) {
+//     console.log('You Tied!');
     
-  } else{
-    console.log(`Computer Wins! Final Score was ${playerScore} to ${computerScore}`);
-  }
+//   } else{
+//     console.log(`Computer Wins! Final Score was ${playerScore} to ${computerScore}`);
+//   }
 
-  return;
+//   return;
 
-}
+// }
 
 // Start the game simulation
-game();
+// game();
 
