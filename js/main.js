@@ -1,21 +1,43 @@
 const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
-const result = document.querySelector('#results');
+const result = document.querySelector('#round-result');
 const playerScore = document.querySelector('#player-score');
 const computerScore = document.querySelector('#computer-score');
+const playAgain = document.querySelector('#play-again');
+const gameWinner = document.querySelector('#game-winner');
 
-rockButton.addEventListener('click', e => {
-  playRound(e.target.innerText, randomPlay());
-});
+let playerIsWinner = false;
+let isTie = false;
 
-paperButton.addEventListener('click', e => {
-  playRound(e.target.innerText, randomPlay());
-});
+playAgain.addEventListener('click', reset);
 
-scissorsButton.addEventListener('click', e => {
-  playRound(e.target.innerText, randomPlay());
-});
+// Simulate a set amount of rounds of a match
+function game() {
+
+  rockButton.addEventListener('click', handleRound);
+  paperButton.addEventListener('click', handleRound);
+  scissorsButton.addEventListener('click', handleRound);
+  
+  // rockButton.addEventListener('click', e => {
+  //   playerIsWinner = playRound(e.target.innerText, randomPlay());
+  //   checkRound(playerIsWinner, isTie);
+  //   checkIfPlayerWon();
+  // });
+
+  return;
+
+}
+
+// Start the game simulation
+game();
+
+
+function handleRound(e) {
+  playerIsWinner = playRound(e.target.innerText, randomPlay());
+  checkRound(playerIsWinner, isTie);
+  checkIfPlayerWon();
+}
 
 
 
@@ -29,26 +51,62 @@ function randomPlay() {
 
 // Simulate the cases for a single round of the game, and return the resulting winner/loser
 function playRound(playerSelection, computerSelection) {
+  let playerWins = false;
+  isTie = false;
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
   if(playerSelection === 'rock' && computerSelection === 'scissors') {
     result.innerText = 'You Win! Rock beats Scissors';
-    incrementPlayerScore();
+    playerWins = true;
+    return playerWins;
   } else if(playerSelection === 'paper' && computerSelection === 'rock') {
     result.innerText = 'You Win! Paper beats Rock';
-    incrementPlayerScore();
+    playerWins = true;
+    return playerWins;
   } else if(playerSelection === 'scissors' && computerSelection === 'paper') {
-     result.innerText = 'You Win! Scissors beats Paper';
-     incrementPlayerScore();
+    result.innerText = 'You Win! Scissors beats Paper';
+    playerWins = true;
+    return playerWins; 
   } else if(playerSelection === computerSelection) {
     result.innerText = 'You Tie!';
+    isTie = true;
   } else {
     result.innerText = `You Lose! ${computerSelection[0].toUpperCase() + computerSelection.substring(1)}` + 
     ` beats ${playerSelection[0].toUpperCase() + playerSelection.substring(1)}`;
-    incrementComputerScore();
+    return playerWins;
   }
 }
 
+function checkRound(playerIsWinner, isTie) {
+  if(playerIsWinner) {
+    incrementPlayerScore();
+  } else if(!playerIsWinner && !isTie) {
+    incrementComputerScore();
+  } 
+}
+
+function checkIfPlayerWon() {
+  if(playerScore.innerText === '5') {
+    endGame(true);
+  } else if(computerScore.innerText === '5') {
+    endGame( false );
+  } else {
+    return;
+  }
+  
+}
+
+function endGame(playerWon) {
+  if(playerWon) {
+    disableButtons();
+    gameWinner.innerText = 'You Win!'
+    playAgain.classList.remove('hidden');
+  } else {
+    disableButtons();
+    gameWinner.innerText = 'You Lose!';
+    playAgain.classList.remove('hidden');
+  }
+}
 
 function incrementPlayerScore() {
   let currentScore = Number(playerScore.innerText);
@@ -60,52 +118,29 @@ function incrementComputerScore() {
   computerScore.innerText = `${++currentScore}`;
 }
 
+function disableButtons() {
+  rockButton.disabled = true;
+  paperButton.disabled = true;
+  scissorsButton.disabled = true;
+}
 
-// Simulate a set amount of rounds of a match
-// function game() {
+function enableButtons() {
+  rockButton.disabled = false;
+  paperButton.disabled = false;
+  scissorsButton.disabled = false;
+}
 
-//   let playerScore = 0;
-//   let computerScore = 0;
-
-//   // 5 rounds
-//   for(let i = 0; i < 5; i++) {
-
-//     // Generate random choices for both players
-
-//     // let playerSelection = prompt('Rock, Paper, or Scissors?').toLowerCase();
-//     let computerSelection = randomPlay();
-
-//     let result = playRound(playerSelection, computerSelection);
-//     console.log(result);
-//     // Tally score
-//     if(result.includes('Win')) {
-//       playerScore++;
-//     } else if(result.includes('Lose')) {
-//       computerScore++;
-//     } 
-    
-//     // Display score
-//     console.log(`Your Score: ${playerScore} | Computer Score: ${computerScore}`)
-
-    
-//   }
+function reset() {
+  playerScore.innerText = '0';
+  computerScore.innerText = '0';
+  result.innerText = '';
+  rockButton.removeEventListener('click', handleRound);
+  paperButton.removeEventListener('click', handleRound);
+  scissorsButton.removeEventListener('click', handleRound);
+  enableButtons();
+  playAgain.classList.add('hidden');
+  game();
+}
 
 
-//   // Determine winner by seeing who was higher score
-//   if(playerScore > computerScore) {
-//     console.log(`Player Wins! Final Score was ${playerScore} to ${computerScore}`);
-    
-//   } else if(playerScore === computerScore) {
-//     console.log('You Tied!');
-    
-//   } else{
-//     console.log(`Computer Wins! Final Score was ${playerScore} to ${computerScore}`);
-//   }
-
-//   return;
-
-// }
-
-// Start the game simulation
-// game();
 
