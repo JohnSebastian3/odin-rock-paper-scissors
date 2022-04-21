@@ -1,10 +1,22 @@
 const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
+const result = document.querySelector('#results');
+const playerScore = document.querySelector('#player-score');
+const computerScore = document.querySelector('#computer-score');
 
 rockButton.addEventListener('click', e => {
   playRound(e.target.innerText, randomPlay());
 });
+
+paperButton.addEventListener('click', e => {
+  playRound(e.target.innerText, randomPlay());
+});
+
+scissorsButton.addEventListener('click', e => {
+  playRound(e.target.innerText, randomPlay());
+});
+
 
 
 // Randomly return either rock, paper, or scissors
@@ -20,19 +32,33 @@ function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
   if(playerSelection === 'rock' && computerSelection === 'scissors') {
-    return 'You Win! Rock beats Scissors';
+    result.innerText = 'You Win! Rock beats Scissors';
+    incrementPlayerScore();
   } else if(playerSelection === 'paper' && computerSelection === 'rock') {
-    return 'You Win! Paper beats Rock';
+    result.innerText = 'You Win! Paper beats Rock';
+    incrementPlayerScore();
   } else if(playerSelection === 'scissors' && computerSelection === 'paper') {
-     return 'You Win! Scissors beats Paper';
+     result.innerText = 'You Win! Scissors beats Paper';
+     incrementPlayerScore();
   } else if(playerSelection === computerSelection) {
-    return 'You Tie!';
+    result.innerText = 'You Tie!';
   } else {
-    return `You Lose! ${computerSelection[0].toUpperCase() + computerSelection.substring(1)}` + 
+    result.innerText = `You Lose! ${computerSelection[0].toUpperCase() + computerSelection.substring(1)}` + 
     ` beats ${playerSelection[0].toUpperCase() + playerSelection.substring(1)}`;
+    incrementComputerScore();
   }
 }
 
+
+function incrementPlayerScore() {
+  let currentScore = Number(playerScore.innerText);
+  playerScore.innerText = `${++currentScore}`;
+}
+
+function incrementComputerScore() {
+  let currentScore = Number(computerScore.innerText);
+  computerScore.innerText = `${++currentScore}`;
+}
 
 
 // Simulate a set amount of rounds of a match
