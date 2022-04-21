@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Play&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <title>Rock Paper Scissors!</title>
@@ -11,29 +14,50 @@
 <body>
   
   <div class="container">
-    <h1>Rock Paper Scissors! Who will win?</h1>
+    <h1>Let's Play Rock Paper Scissors! <br>Who will win?</h1>
+
+    <section class="player">
+      
+    </section>
   
-    <h2>Player</h2>
-    <button id="rock" value="rock" class="button">Rock <span name="rock">🗿</span></button>
-    
-    <button id="paper" value="paper" class="button">Paper <span name="paper">📄</span></button>
-    
-    <button id="scissors" value="scissors" class="button">Scissors <span name="scissors">✂</span></button>
-    
+    <section class="scoreboard">
+
+      <section class="player">
+        <h2>Player</h2>
+        <h3>Score: <span id="player-score">0</span></h3>
+      </section>
   
-    <h2>Computer</h2>
+      <section class="computer">
+        <h2>Computer</h2>
+        <h3>Score: <span id="computer-score">0</span></h3>
+      </section>
+
+    </section>
+    
+    
+    <span id="round-result">Will you be victorious?</span>
+    <div class="choices">
+      <span>Player Choice: <span id="player-choice"></span></span>
+      <span>Computer Choice: <span id="computer-choice"></span></span>
+    </div>
+    
+    
+    <section class="buttons">
+
+      <button id="rock" value="rock" class="button"><span name="rock">🗿</span>Rock</button>
+      
+      <button id="paper" value="paper" class="button"><span name="paper">📄</span>Paper</button>
+      
+      <button id="scissors" value="scissors" class="button"><span name="scissors">✂</span>Scissors</button>
+      
+    </section>
+  
    
   
-    <div id="round-result">
-    </div>
-    <div id="scores">
-      <h3>Player Score: <span id="player-score">0</span></h3>
-      <h3>Computer Score: <span id="computer-score">0</span></h3>
-    </div>
   
     <h2 id="game-winner"></h2>
   
-    <button id="play-again" class="hidden">Play Again</button>
+    <button id="play-again" class="hidden button reset">Play Again</button>
   </div>
 
 

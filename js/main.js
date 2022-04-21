@@ -7,6 +7,8 @@ const playerScore = document.querySelector('#player-score');
 const computerScore = document.querySelector('#computer-score');
 const playAgain = document.querySelector('#play-again');
 const gameWinner = document.querySelector('#game-winner');
+const playerChoice = document.querySelector('#player-choice');
+const computerChoice = document.querySelector('#computer-choice');
 
 let playerIsWinner = false;
 let isTie = false;
@@ -46,29 +48,39 @@ function randomPlay() {
 
 // Simulate the cases for a single round of the game, and return the resulting winner/loser 
 function playRound(playerSelection, computerSelection) {
-  console.log(playerSelection, computerSelection);
+  // console.log(playerSelection, computerSelection);
   let playerWins = false;
   isTie = false;
   playerSelection = playerSelection.toLowerCase();
   computerSelection = computerSelection.toLowerCase();
   if(playerSelection === 'rock' && computerSelection === 'scissors') {
     result.innerText = 'You Win! Rock beats Scissors';
+    playerChoice.innerText = 'Rock';
+    computerChoice.innerText = 'Scissors';
     playerWins = true;
     return playerWins;
   } else if(playerSelection === 'paper' && computerSelection === 'rock') {
     result.innerText = 'You Win! Paper beats Rock';
+    playerChoice.innerText = 'Paper';
+    computerChoice.innerText = 'Rock';
     playerWins = true;
     return playerWins;
   } else if(playerSelection === 'scissors' && computerSelection === 'paper') {
     result.innerText = 'You Win! Scissors beats Paper';
+    playerChoice.innerText = 'Scissors';
+    computerChoice.innerText = 'Paper';
     playerWins = true;
     return playerWins; 
   } else if(playerSelection === computerSelection) {
     result.innerText = 'You Tie!';
+    playerChoice.innerText = `${playerSelection[0].toUpperCase() + playerSelection.substring(1)}`;
+    computerChoice.innerText = `${computerSelection[0].toUpperCase() + computerSelection.substring(1)}`;
     isTie = true;
   } else {
     result.innerText = `You Lose! ${computerSelection[0].toUpperCase() + computerSelection.substring(1)}` + 
     ` beats ${playerSelection[0].toUpperCase() + playerSelection.substring(1)}`;
+    playerChoice.innerText = `${playerSelection[0].toUpperCase() + playerSelection.substring(1)}`;
+    computerChoice.innerText = `${computerSelection[0].toUpperCase() + computerSelection.substring(1)}`;
     return playerWins;
   }
 }
@@ -134,7 +146,7 @@ function enableButtons() {
 function reset() {
   playerScore.innerText = '0';
   computerScore.innerText = '0';
-  result.innerText = '';
+  result.innerText = 'Will you be victorious?';
   gameWinner.innerText = '';
   rockButton.removeEventListener('click', handleRound);
   paperButton.removeEventListener('click', handleRound);
