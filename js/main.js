@@ -1,3 +1,4 @@
+// Caching buttons and places to display info for later
 const rockButton = document.querySelector('#rock');
 const paperButton = document.querySelector('#paper');
 const scissorsButton = document.querySelector('#scissors');
@@ -12,21 +13,15 @@ let isTie = false;
 
 playAgain.addEventListener('click', reset);
 
-// Simulate a set amount of rounds of a match
+
+// Simulate match
 function game() {
 
   rockButton.addEventListener('click', handleRound);
   paperButton.addEventListener('click', handleRound);
   scissorsButton.addEventListener('click', handleRound);
-  
-  // rockButton.addEventListener('click', e => {
-  //   playerIsWinner = playRound(e.target.innerText, randomPlay());
-  //   checkRound(playerIsWinner, isTie);
-  //   checkIfPlayerWon();
-  // });
 
   return;
-
 }
 
 // Start the game simulation
@@ -34,14 +29,14 @@ game();
 
 
 function handleRound(e) {
-  playerIsWinner = playRound(e.target.innerText, randomPlay());
+  playerIsWinner = playRound(e.target.attributes[0].value, randomPlay());
   checkRound(playerIsWinner, isTie);
   checkIfPlayerWon();
 }
 
 
 
-// Randomly return either rock, paper, or scissors
+// Randomly return either rock, paper, or scissors for computer
 function randomPlay() {
   let choices = ['Rock', 'Paper', 'Scissors'];
   let randomIndex = Math.floor(Math.random() * 3); 
@@ -49,8 +44,9 @@ function randomPlay() {
 }
 
 
-// Simulate the cases for a single round of the game, and return the resulting winner/loser
+// Simulate the cases for a single round of the game, and return the resulting winner/loser 
 function playRound(playerSelection, computerSelection) {
+  console.log(playerSelection, computerSelection);
   let playerWins = false;
   isTie = false;
   playerSelection = playerSelection.toLowerCase();
@@ -77,6 +73,7 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
+// Check which player to increment the score for
 function checkRound(playerIsWinner, isTie) {
   if(playerIsWinner) {
     incrementPlayerScore();
@@ -85,6 +82,8 @@ function checkRound(playerIsWinner, isTie) {
   } 
 }
 
+// If we have hit a total of 5 round wins, we win the match. If the
+// computer hits it first, we lose
 function checkIfPlayerWon() {
   if(playerScore.innerText === '5') {
     endGame(true);
@@ -96,6 +95,7 @@ function checkIfPlayerWon() {
   
 }
 
+// Allow player to play again, and display whether we won or lost
 function endGame(playerWon) {
   if(playerWon) {
     disableButtons();
@@ -130,10 +130,12 @@ function enableButtons() {
   scissorsButton.disabled = false;
 }
 
+// Hide play again button and restart
 function reset() {
   playerScore.innerText = '0';
   computerScore.innerText = '0';
   result.innerText = '';
+  gameWinner.innerText = '';
   rockButton.removeEventListener('click', handleRound);
   paperButton.removeEventListener('click', handleRound);
   scissorsButton.removeEventListener('click', handleRound);
