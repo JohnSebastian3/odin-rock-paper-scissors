@@ -3,7 +3,7 @@ This is a simple Rock Paper Scissors game. You play against the computer, and be
 
 **Link to project:** https://johnsebastian3.github.io/odin-rock-paper-scissors/
 
-<!-- ![alt tag](http://placecorgi.com/1200/650) -->
+![alt tag](rpsgif.gif)
 
 ## How It's Made:
 
